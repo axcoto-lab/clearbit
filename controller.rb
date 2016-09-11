@@ -4,11 +4,22 @@ get '/' do
   erb :index, locals: { :plaid_public_key => settings.plaid_public_key}
 end
 
+require 'pp'
+
 post '/authenticate' do
-  puts params["account"]
-  user = Plaid::User.create(:connect, 'wells', 'plaid_test', 'plaid_good')
+  info_user = Plaid::User.create(:info, 'chase', 'plaid_test', 'plaid_good', pin: '1234', options: {:list => true})
+  domain_info = Extractor::Mfa.extract(info_user)
 
-  statement = []
 
-  erb :authenticate, locals: {user: user, statement: statement}
+  user = Plaid::User.exchange_token(params['public_token'])
+  statement = user.transactions
+
+  statement_domain = Extractor::Statement.extract(stament)
+
+  puts statement_domain
+
+  erb :authenticate, locals: {
+    domain_info: domain_info,
+    statement_domain: statement_domain,
+    statement: statement}
 end

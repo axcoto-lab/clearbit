@@ -1,1 +1,40 @@
-Authenticated
+<h4>Company from MFA of user </h4>
+<% domain_info.each do |company| %>
+  <ul>
+    <li><%= company.name %></li>
+    <li><%= company.site.phoneNumbers %></li>
+  </ul>
+<% end %>
+
+<h4>Company from statements</h4>
+<% statement_domain.each do |company| %>
+  <ul>
+    <li>Name: <%= company.name %></li>
+    <li>Phone: <%= company.site.phoneNumbers %></li>
+  </ul>
+<% end %>
+
+
+<h4>Statement</h4>
+<table border=1>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Type</td>
+      <td>Date</td>
+      <td>Amout</td>
+      <td>Name</td>
+      <td>Status</td>
+    </tr>
+  </thead>
+<% statement.each do |s| %>
+  <tr>
+    <td><%= s.id %></td>
+    <td><%= transaction_type(s) %></td>
+    <td><%= s.date %></td>
+    <td><%= s.amount %></td>
+    <td><%= s.name %></td>
+    <td><%= transaction_status(s) %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,4 +1,6 @@
 helpers do
+  RECURRING_STOP_WORDS = ["Company Payroll", "recurring"]
+
   def css_url
     @css_url || "/css/app.css?t=#{File.mtime('./public/css/app.css').to_i}"
   end
@@ -9,5 +11,21 @@ helpers do
 
   def bold(text)
     return "<strong>#{text}</strong>"
+  end
+
+  def transaction_type(statement)
+    if RECURRING_STOP_WORDS.any? { |w| statement.name.include? w }
+      "Recurring"
+    else
+      "Transaction"
+    end
+  end
+
+  def transaction_status(statement)
+    if statement.pending
+      "Pending"
+    else
+      "Done"
+    end
   end
 end

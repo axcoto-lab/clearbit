@@ -7,6 +7,7 @@ require 'sinatra/json'
 require 'sinatra/cookies'
 require 'sinatra/flash'
 require './helpers'
+require './lib/extrator'
 require 'plaid'
 Bundler.require(:default)
 
@@ -18,6 +19,8 @@ Plaid.config do |p|
   p.secret = ENV['PLAID_SECRET']
   p.env = :tartan  # or :production
 end
+
+Clearbit.key = ENV['CLEARBIT_KEY']
 
 configure do
 	enable :sessions
