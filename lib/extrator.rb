@@ -3,8 +3,10 @@ require_relative './extrator/statement'
 
 module Extractor
   class Base
-    def extract(target)
-      raise "Implement extra method"
+    def self.extract(user)
+      statement = user.transactions
+      statement_domain = Extractor::Statement.extract(statement)
+      statement_domain
     end
   end
 end

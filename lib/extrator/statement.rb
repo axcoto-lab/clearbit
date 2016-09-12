@@ -6,7 +6,8 @@ module Extractor
           if m = /[\w]+\.[^\s]+/.match(word)
             m[0]
           else
-            "stripe.com"
+            # "stripe.com"
+            nil
           end
         end.select { |d| !d.nil? && !d.empty?}
       end.flatten.uniq.map do |m|

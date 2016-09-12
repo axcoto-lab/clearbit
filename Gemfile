@@ -9,3 +9,9 @@ gem 'dotenv'
 gem 'plaid'
 gem 'racksh'
 gem 'clearbit'
+gem 'rake'
+gem 'pry', require: false
+
+group :test do
+  gem 'minitest'
+end

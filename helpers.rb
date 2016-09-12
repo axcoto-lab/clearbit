@@ -14,7 +14,7 @@ helpers do
   end
 
   def transaction_type(statement)
-    if RECURRING_STOP_WORDS.any? { |w| statement.name.include? w }
+    if RECURRING_STOP_WORDS.any? { |w| statement.name.downcase.include? w }
       "Recurring"
     else
       "Transaction"
